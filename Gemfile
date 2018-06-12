@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.1.5"
+ruby "2.3.3"
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
 gem 'rails', '~> 3.2.22'
@@ -10,7 +10,7 @@ gem 'i18n-js', '~> 3.0.0'
 # Patched version. See http://rubysec.com/advisories/CVE-2015-5312/.
 gem 'nokogiri', '>= 1.6.7.1'
 
-gem 'pg'
+gem 'pg', '~> 0.21'
 gem 'spree', github: 'openfoodfoundation/spree', branch: 'step-6a', ref: '86bf87f1b1e1b299edc8cd10a2486e44ba0a3987'
 gem 'spree_i18n', github: 'spree/spree_i18n', branch: '1-3-stable'
 gem 'spree_auth_devise', github: 'openfoodfoundation/spree_auth_devise', branch: 'spree-upgrade-intermediate'
@@ -62,7 +62,7 @@ gem 'custom_error_message', github: 'jeremydurham/custom-err-msg'
 gem 'angularjs-file-upload-rails', '~> 1.1.6'
 gem 'roadie-rails', '~> 1.0.3'
 gem 'figaro'
-gem 'blockenspiel'
+gem 'blockenspiel', '~> 0.5.0'
 gem 'acts-as-taggable-on', '~> 3.4'
 gem 'paper_trail', '~> 3.0.8'
 gem 'diffy'
@@ -141,6 +141,7 @@ group :development do
   gem 'guard-rspec', '~> 4.7.3'
   gem 'parallel_tests'
   gem 'rubocop', '>= 0.49.1'
+  gem 'test-unit'
 
   # 1.0.9 fixed openssl issues on macOS https://github.com/eventmachine/eventmachine/issues/602
   # While we don't require this gem directly, no dependents forced the upgrade to a version

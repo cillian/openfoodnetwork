@@ -196,7 +196,7 @@ GEM
     bcrypt (3.1.11)
     bcrypt-ruby (3.1.5)
       bcrypt (>= 3.1.3)
-    blockenspiel (0.4.5)
+    blockenspiel (0.5.0)
     bugsnag (4.1.0)
     builder (3.0.4)
     byebug (9.0.6)
@@ -519,7 +519,7 @@ GEM
       xml-simple
     paypal-sdk-merchant (1.106.1)
       paypal-sdk-core (~> 0.2.3)
-    pg (0.13.2)
+    pg (0.21.0)
     poltergeist (1.16.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -527,6 +527,7 @@ GEM
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.5)
+    power_assert (1.1.2)
     powerpack (0.1.1)
     pry (0.11.2)
       coderay (~> 1.1.0)
@@ -659,6 +660,8 @@ GEM
     stringex (1.3.3)
     stripe (3.3.1)
       faraday (~> 0.9)
+    test-unit (3.2.8)
+      power_assert
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -720,7 +723,7 @@ DEPENDENCIES
   atomic
   awesome_print
   aws-sdk
-  blockenspiel
+  blockenspiel (~> 0.5.0)
   bugsnag
   byebug (~> 9.0.0)
   capybara (>= 2.15.4)
@@ -770,7 +773,7 @@ DEPENDENCIES
   paper_trail (~> 3.0.8)
   paperclip
   parallel_tests
-  pg
+  pg (~> 0.21)
   poltergeist (>= 1.16.0)
   pry-byebug (>= 3.4.3)
   rabl
@@ -782,8 +785,8 @@ DEPENDENCIES
   representative_view
   roadie-rails (~> 1.0.3)
   roo (~> 2.7.0)
-  rspec-rails (>= 3.5.2)
   roo-xls (~> 1.1.0)
+  rspec-rails (>= 3.5.2)
   rspec-retry
   rubocop (>= 0.49.1)
   sass (~> 3.3)
@@ -797,6 +800,7 @@ DEPENDENCIES
   spree_i18n!
   spree_paypal_express!
   stripe (~> 3.3.1)
+  test-unit
   therubyracer
   timecop
   truncate_html
@@ -810,7 +814,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.1.5p273
+   ruby 2.3.3p222
 
 BUNDLED WITH
    1.16.1
