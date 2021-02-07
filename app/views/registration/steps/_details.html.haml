@@ -73,7 +73,7 @@
           %label{ for: 'confirm_address_true' } {{'registration.steps.details.confirm_address_yes' | t}}
           %input{ id: 'confirm_address_false', type: 'radio', name: 'confirm_address', ng: { model: 'confirmAddress', change: 'confirmAddressChange(confirmAddress)', value: 'false' } }
           %label{ for: 'confirm_address_false' } {{'registration.steps.details.confirm_address_no' | t}}
-      .small-12.medium-9.large-12.columns.end{ ng: {if: "addressConfirmed === false"}} 
+      .small-12.medium-9.large-12.columns.end{ ng: {if: "latLong"}} 
         .field
           %strong {{'registration.steps.details.drag_map_marker' | t}}
       .row.buttons
