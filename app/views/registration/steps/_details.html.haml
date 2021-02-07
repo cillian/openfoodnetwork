@@ -61,7 +61,7 @@
         .map-container--registration{id: "registration-map", ng: {if: "!!map"}}
           %label{ for: 'map_location' }= t(".map_location")
           %ui-gmap-google-map{ center: "map.center", zoom: "map.zoom"}
-            %ui-gmap-marker{idKey: 1, coords: "latLong", options: '{ draggable: markerDraggable}'}
+            %ui-gmap-marker{idKey: 1, coords: "latLong", options: '{ draggable: true}'}
           
       .center
         %input.button.primary{ type: "button", value: "{{'registration.steps.details.locate_address' | t}}", ng: { click: "locateAddress()" } }
