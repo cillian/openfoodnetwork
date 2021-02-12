@@ -10,7 +10,7 @@ module Spree
     has_one :enterprise, dependent: :restrict_with_exception
     has_many :shipments
 
-    before_validation :geocode, if: :use_geocoder?
+    before_save :geocode, if: :use_geocoder?
 
     validates :firstname, :lastname, :address1, :city, :country, presence: true
     validates :zipcode, presence: true, if: :require_zipcode?
