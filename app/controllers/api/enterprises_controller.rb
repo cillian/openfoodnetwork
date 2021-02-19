@@ -1,5 +1,7 @@
 module Api
   class EnterprisesController < Api::BaseController
+    include GeocodeEnterpriseAddress
+
     before_action :override_owner, only: [:create, :update]
     before_action :check_type, only: :update
     before_action :override_sells, only: [:create, :update]
@@ -12,8 +14,10 @@ module Api
       # params[:user_ids] breaks the enterprise creation
       # We remove them from params and save them after creating the enterprise
       user_ids = params[:enterprise].delete(:user_ids)
+      store_and_delete_use_geocoder_parameter
       @enterprise = Enterprise.new(enterprise_params)
       if @enterprise.save
+        geocode_address_if_use_geocoder
         @enterprise.user_ids = user_ids
         render json: @enterprise.id, status: :created
       else
@@ -25,7 +29,9 @@ module Api
       @enterprise = Enterprise.find_by(permalink: params[:id]) || Enterprise.find(params[:id])
       authorize! :update, @enterprise
 
+      store_and_delete_use_geocoder_parameter
       if @enterprise.update(enterprise_params)
+        geocode_address_if_use_geocoder
         render json: @enterprise.id, status: :ok
       else
         invalid_resource!(@enterprise)
