@@ -8,8 +8,8 @@ describe AddressGeocoder do
       address1: "12 Galvin Street",
       address2: "Unit 1",
       city: "Altona",
-      country: Spree::Country.find_by(name: "Australia"),
-      state: Spree::State.find_by(name: "Victoria"),
+      country: Spree::Country.find_or_create_by(name: "Australia"),
+      state: Spree::State.find_or_create_by(name: "Victoria"),
       zipcode: 3018,
       latitude: nil,
       longitude: nil)

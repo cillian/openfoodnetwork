@@ -10,6 +10,8 @@ module GeocodeEnterpriseAddress
   end
 
   def store_and_delete_use_geocoder_parameter
-    @use_geocoder = (params.dig(:enterprise, :address_attributes) || {}).delete(:use_geocoder) == "1"
+    @use_geocoder = (
+      params.dig(:enterprise, :address_attributes) || {}
+    ).delete(:use_geocoder) == "1"
   end
 end
