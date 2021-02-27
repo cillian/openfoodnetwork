@@ -7,7 +7,6 @@
           %h2= t('.headline')
           %h5{ ng: { if: "::enterprise.type != 'own'" } }= t(".enterprise")
           %h5{ ng: { if: "::enterprise.type == 'own'" } }= t(".producer")
-          
     %form{ name: 'details', novalidate: true, ng: { controller: "RegistrationFormCtrl", submit: "selectIfValid('contact',details)" } }
 
       .row
