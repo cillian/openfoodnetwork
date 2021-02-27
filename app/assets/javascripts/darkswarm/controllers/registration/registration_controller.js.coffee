@@ -26,7 +26,7 @@ Darkswarm.controller "RegistrationCtrl", ($scope, RegistrationService, Enterpris
   $scope.countryHasStates = ->
     $scope.enterprise.country.states.length > 0
 
-  $scope.map = {center: {latitude: 43.078598, longitude: 12.249547 }, zoom: 2};
+  $scope.map = {center: {latitude: 0.000000, longitude: 0.000000 }, zoom: 1};
   $scope.options = {scrollwheel: false};
   $scope.locateAddress = () ->
     { address1, address2, city, state_id, zipcode } = $scope.enterprise.address
