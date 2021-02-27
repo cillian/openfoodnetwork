@@ -56,7 +56,7 @@
                 %select.chunky{ id: 'enterprise_country', name: 'country', required: true, ng: { init: "setDefaultCountry(#{Spree::Config[:default_country_id]})", model: 'enterprise.country', options: 'c as c.name for c in countries' } }
                 %span.error{ ng: { show: "details.country.$error.required && submitted" } }
                   = t(".country_field_error")
-      %div{ ng: {if: "enableMapConfirm"}} 
+      %div{ ng: {if: "enableMapConfirm"}}
         .center{ ng: {if: "latLong"}} 
           %strong {{'registration.steps.details.drag_pin' | t}}
         .small-12.medium-9.large-12.columns.end
