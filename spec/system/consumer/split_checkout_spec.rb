@@ -68,15 +68,7 @@ describe "As a consumer, I want to checkout my order", js: true do
     add_enterprise_fee enterprise_fee
     set_order order
 
-    shipping_methods = [
-      free_shipping_with_required_address,
-      free_shipping,
-      shipping_with_fee,
-      free_shipping_without_required_address,
-      tagged_shipping
-    ]
-    distributor.shipping_methods << shipping_methods
-    order_cycle.shipping_methods << shipping_methods
+    distributor.shipping_methods.push(free_shipping_with_required_address, free_shipping, shipping_with_fee, free_shipping_without_required_address, tagged_shipping)
   end
 
   context "guest checkout when distributor doesn't allow guest orders" do
