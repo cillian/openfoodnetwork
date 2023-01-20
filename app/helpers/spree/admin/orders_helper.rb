@@ -21,6 +21,7 @@ module Spree
         links.concat(complete_order_links) if @order.complete? || @order.resumed?
         links << ship_order_link if @order.ready_to_ship?
         links << cancel_order_link if @order.can_cancel?
+        links.each { |link| link[:attributes]["data-action"] = "click->dropdown#close" }
         links
       end
 
@@ -59,74 +60,118 @@ module Spree
       end
 
       def edit_order_link
-        { name: t(:edit_order),
-          url: spree.edit_admin_order_path(@order),
-          icon: 'icon-edit' }
+        {
+          name: t(:edit_order),
+          icon: 'icon-edit',
+          attributes: {
+            href: spree.edit_admin_order_path(@order),
+          }
+        }
       end
 
       def resend_confirmation_link
-        { name: t(:resend_confirmation),
-          url: spree.resend_admin_order_path(@order),
+        {
+          name: t(:resend_confirmation),
           icon: 'icon-email',
-          method: 'post',
-          confirm: t(:confirm_resend_order_confirmation) }
+          attributes: {
+            href: spree.resend_admin_order_path(@order),
+            data: {
+              method: 'post',
+              confirm: t(:confirm_resend_order_confirmation)
+            }
+          }
+        }
       end
 
       def send_invoice_link_with_url
-        { name: t(:send_invoice),
-          url: invoice_admin_order_path(@order),
+        {
+          name: t(:send_invoice),
           icon: 'icon-email',
-          confirm: t(:confirm_send_invoice) }
+          attributes: {
+            href: invoice_admin_order_path(@order),
+            data: { confirm: t(:confirm_send_invoice) }
+          }
+        }
       end
 
       def send_invoice_link_without_url
-        { name: t(:send_invoice),
-          url: "#",
+        {
+          name: t(:send_invoice),
           icon: 'icon-email',
-          confirm: t(:must_have_valid_business_number, enterprise_name: @order.distributor.name) }
+          attributes: {
+            href: "#",
+            data: { confirm: t(:must_have_valid_business_number, enterprise_name: @order.distributor.name) }
+          }
+        }
       end
 
       def print_invoice_link_with_url
-        { name: t(:print_invoice),
-          url: spree.print_admin_order_path(@order),
+        {
+          name: t(:print_invoice),
           icon: 'icon-print',
-          target: "_blank" }
+          attributes: {
+            href: spree.print_admin_order_path(@order),
+            target: "_blank"
+          }
+        }
       end
 
       def notify_about_required_enterprise_number
-        { name: t(:print_invoice),
-          url: "#",
+        {
+          name: t(:print_invoice),
           icon: 'icon-print',
-          confirm: t(:must_have_valid_business_number, enterprise_name: @order.distributor.name) }
+          attributes: {
+            href: "#",
+            data: { confirm: t(:must_have_valid_business_number, enterprise_name: @order.distributor.name) }
+          }
+        }
       end
 
       def print_ticket_link
-        { name: t(:print_ticket),
-          url: print_ticket_admin_order_path(@order),
+        {
+          name: t(:print_ticket),
           icon: 'icon-print',
-          target: "_blank" }
+          attributes: {
+            href: print_ticket_admin_order_path(@order),
+            target: "_blank"
+          }
+        }
       end
 
       def select_ticket_printer_link
-        { name: t(:select_ticket_printer),
-          url: "#{print_ticket_admin_order_path(@order)}#select-printer",
+        {
+          name: t(:select_ticket_printer),
           icon: 'icon-print',
-          target: "_blank" }
+          attributes: {
+            href: "#{print_ticket_admin_order_path(@order)}#select-printer",
+            target: "_blank"
+          }
+        }
       end
 
       def ship_order_link
-        { name: t(:ship_order),
-          url: spree.fire_admin_order_path(@order, e: 'ship'),
-          method: 'put',
+        {
+          name: t(:ship_order),
           icon: 'icon-truck',
-          confirm: t(:are_you_sure) }
+          attributes: {
+            href: spree.fire_admin_order_path(@order, e: 'ship'),
+            data: {
+              method: 'put',
+              confirm: t(:are_you_sure)
+            }
+          }
+        }
       end
 
       def cancel_order_link
-        { name: t(:cancel_order),
-          url: spree.fire_admin_order_path(@order.number, e: 'cancel'),
+        {
+          name: t(:cancel_order),
           icon: 'icon-trash',
-          confirm: t(:are_you_sure) }
+          attributes: {
+            href: spree.fire_admin_order_path(@order.number, e: 'cancel'),
+            data: { confirm: t(:are_you_sure) }
+          }
+        }
       end
 
       def cancel_event_link

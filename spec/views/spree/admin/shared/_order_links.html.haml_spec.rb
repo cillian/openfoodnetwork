@@ -11,11 +11,11 @@ describe "spree/admin/shared/_order_links.html.haml" do
     assign(:order, order)
   end
 
-  describe "actions dropwdown" do
+  describe "actions dropdown" do
     it "contains all the actions buttons" do
       render
 
-      expect(rendered).to have_content("links-dropdown")
+      expect(rendered).to have_content("Edit Order")
     end
   end
 end

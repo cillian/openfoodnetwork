@@ -210,3 +210,22 @@
 		}
 	}
 }
+
+#links-dropdown .ofn-drop-down {
+  padding: 0;
+
+  button:hover {
+    background-color: #9FC820;
+    color: #FFFFFF;
+  }
+}
+
+#bulk-actions-dropdown, #views-dropdown {
+  padding: 0;
+
+  button {
+    background-color: inherit;
+    color: inherit;
+    display: block;
+  }
+}
