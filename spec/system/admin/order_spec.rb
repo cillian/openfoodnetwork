@@ -531,13 +531,13 @@ describe '
               expect(page).to have_link "Send Invoice", href: "#"
               expect(page).to have_link "Print Invoice", href: "#"
 
-              message = accept_prompt do
+              message = accept_confirm do
                 click_link "Print Invoice"
               end
               expect(message).to eq "#{distributor1.name} must have a valid ABN before invoices can be sent."
 
               find("#links-dropdown .ofn-drop-down").click
-              message = accept_prompt do
+              message = accept_confirm do
                 click_link "Send Invoice"
               end
               expect(message).to eq "#{distributor1.name} must have a valid ABN before invoices can be sent."
