@@ -131,26 +131,49 @@ module Admin
             controller_login_as_enterprise_user([distributor])
           end
 
-          it do
-            expect {
-              get :show, params: { id: order_cycle.id }, as: :json
-            }.to query_database(
-              {
-                select: {
-                  enterprise_fees: 3,
-                  enterprise_groups: 1,
-                  enterprises: 22,
-                  exchanges: 7,
-                  order_cycles: 6,
-                  proxy_orders: 1,
-                  schedules: 1,
-                  spree_roles: 9,
-                  spree_variants: 8,
-                  tags: 1
-                },
-                update: { spree_users: 1 }
-              }
-            )
+          context "in General settings section" do
+            it do
+              expect {
+                get :show, params: { id: order_cycle.id, ams_prefix: "general_settings" }, as: :json
+              }.to query_database(
+                {
+                  select: {
+                    enterprise_fees: 1,
+                    enterprise_groups: 1,
+                    enterprises: 5,
+                    order_cycles: 4,
+                    proxy_orders: 1,
+                    schedules: 1,
+                    spree_roles: 6,
+                  },
+                  update: { spree_users: 1 }
+                }
+              )
+            end
+          end
+
+          context "in Incoming, Outgoing or Checkout options sections" do
+            it do
+              expect {
+                get :show, params: { id: order_cycle.id }, as: :json
+              }.to query_database(
+                {
+                  select: {
+                    enterprise_fees: 3,
+                    enterprise_groups: 1,
+                    enterprises: 22,
+                    exchanges: 7,
+                    order_cycles: 6,
+                    proxy_orders: 1,
+                    schedules: 1,
+                    spree_roles: 9,
+                    spree_variants: 8,
+                    tags: 1
+                  },
+                  update: { spree_users: 1 }
+                }
+              )
+            end
           end
         end
       end

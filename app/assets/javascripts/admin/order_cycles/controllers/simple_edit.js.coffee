@@ -6,7 +6,7 @@ angular.module('admin.orderCycles').controller "AdminSimpleEditOrderCycleCtrl", 
 
   $scope.enterprises = Enterprise.index(order_cycle_id: $scope.orderCycleId())
   $scope.enterprise_fees = EnterpriseFee.index(order_cycle_id: $scope.orderCycleId())
-  $scope.order_cycle = OrderCycle.load $scope.orderCycleId(), (order_cycle) =>
+  $scope.order_cycle = OrderCycle.load { order_cycle_id: $scope.orderCycleId() }, (order_cycle) =>
     $scope.init()
 
   $scope.init = ->

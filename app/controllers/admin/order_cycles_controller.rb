@@ -30,7 +30,9 @@ module Admin
           redirect_to edit_admin_order_cycle_path(@order_cycle)
         end
         format.json do
-          render_as_json @order_cycle, current_user: spree_current_user
+          render_as_json @order_cycle,
+                         ams_prefix: params[:ams_prefix],
+                         current_user: spree_current_user
         end
       end
     end
@@ -281,7 +283,7 @@ module Admin
     end
 
     def ams_prefix_whitelist
-      [:basic, :index]
+      [:basic, :general_settings, :index]
     end
 
     def order_cycle_params

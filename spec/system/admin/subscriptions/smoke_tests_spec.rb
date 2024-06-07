@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'system_helper'
+require 'open_food_network/order_cycle_form_applicator'
 
 RSpec.describe 'Subscriptions' do
   include AdminHelper
@@ -117,6 +118,8 @@ RSpec.describe 'Subscriptions' do
       end
 
       it "update oc to be upcoming and price estimates are not nil" do
+        OpenFoodNetwork::OrderCycleFormApplicator.new(order_cycle, shop.owner).go!
+
         visit edit_admin_order_cycle_path(order_cycle)
 
         # update orders close

@@ -121,23 +121,25 @@ angular.module('admin.orderCycles').factory 'OrderCycle', ($resource, $window, $
 
       @order_cycle
 
-    load: (order_cycle_id, callback=null) ->
+    load: (params, callback=null) ->
       service = this
-      OrderCycleResource.get {order_cycle_id: order_cycle_id}, (oc) ->
+      OrderCycleResource.get params, (oc) ->
         delete oc.$promise
         delete oc.$resolved
         angular.extend(service.order_cycle, oc)
+        service.order_cycle.exchanges_loaded = oc.hasOwnProperty("exchanges")
         service.order_cycle.incoming_exchanges = []
         service.order_cycle.outgoing_exchanges = []
-        for exchange in service.order_cycle.exchanges
-          if exchange.incoming
-            angular.extend(exchange, {enterprise_id: exchange.sender_id, active: true})
-            delete(exchange.receiver_id)
-            service.order_cycle.incoming_exchanges.push(exchange)
-          else
-            angular.extend(exchange, {enterprise_id: exchange.receiver_id, active: true})
-            delete(exchange.sender_id)
-            service.order_cycle.outgoing_exchanges.push(exchange)
+        if service.order_cycle.exchanges
+          for exchange in service.order_cycle.exchanges
+            if exchange.incoming
+              angular.extend(exchange, {enterprise_id: exchange.sender_id, active: true})
+              delete(exchange.receiver_id)
+              service.order_cycle.incoming_exchanges.push(exchange)
+            else
+              angular.extend(exchange, {enterprise_id: exchange.receiver_id, active: true})
+              delete(exchange.sender_id)
+              service.order_cycle.outgoing_exchanges.push(exchange)
 
         delete(service.order_cycle.exchanges)
         service.loaded = true
@@ -182,10 +184,10 @@ angular.module('admin.orderCycles').factory 'OrderCycle', ($resource, $window, $
 
     dataForSubmit: ->
       data = this.deepCopy()
-      data = this.stripNonSubmittableAttributes(data)
       data = this.removeInactiveExchanges(data)
       data = this.translateCoordinatorFees(data)
       data = this.translateExchangeFees(data)
+      data = this.stripNonSubmittableAttributes(data)
       data
 
     deepCopy: ->
@@ -210,6 +212,16 @@ angular.module('admin.orderCycles').factory 'OrderCycle', ($resource, $window, $
       delete order_cycle.editable_variants_for_outgoing_exchanges
       delete order_cycle.visible_variants_for_outgoing_exchanges
       delete order_cycle.subscriptions_count
+
+      # Don't submit empty :incoming_exchanges and :outgoing_exchanges array parameters
+      # when in the General Settings section because exchanges are not loaded in this section and
+      # that would delete any previously saved exchanges from the order cycle.
+      exchanges_loaded = order_cycle.exchanges_loaded
+      if !exchanges_loaded
+        delete order_cycle.incoming_exchanges
+        delete order_cycle.outgoing_exchanges
+      delete order_cycle.exchanges_loaded
+
       order_cycle
 
     removeInactiveExchanges: (order_cycle) ->
